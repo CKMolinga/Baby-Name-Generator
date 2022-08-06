@@ -1,8 +1,39 @@
-<script setup>
-const options = reactive({
-  gender: "Girl",
-  popularity: "Unique",
-  length: "Short",
+<script setup lang="ts">
+import { reactive } from "vue";
+
+enum Gender {
+  GIRL = 'Girl',
+  BOY = 'Boy',
+  UNISEX = 'Unisex',
+}
+
+enum Popularity {
+  UNIQUE = 'Unique',
+  TRENDY = 'Trendy',
+}
+
+enum Length {
+  LONG = 'Long',
+  ALL = 'All',
+  SHORT = 'Short',
+}
+
+interface OptionsState {
+  gender: Gender;
+  popularity: Popularity;
+  length: Length;
+}
+
+const obj: OptionsState = {
+  gender: Gender.GIRL,
+  popularity: Popularity.UNIQUE,
+  length: Length.LONG,
+};
+
+const options = reactive <OptionsState>({
+  gender: Gender.GIRL,
+  popularity: Popularity.UNIQUE,
+  length: Length.LONG,
 });
 </script>
 
