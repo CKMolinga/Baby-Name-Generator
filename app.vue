@@ -1,22 +1,8 @@
 <script setup lang="ts">
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
 
-enum Gender {
-  GIRL = "Girl",
-  BOY = "Boy",
-  UNISEX = "Unisex",
-}
-
-enum Popularity {
-  UNIQUE = "Unique",
-  TRENDY = "Trendy",
-}
-
-enum Length {
-  LONG = "Long",
-  ALL = "All",
-  SHORT = "Short",
-}
+// Import Enums
+import { Gender, Popularity, Length, names } from "./data";
 
 interface OptionsState {
   gender: Gender;
@@ -24,17 +10,25 @@ interface OptionsState {
   length: Length;
 }
 
-const obj: OptionsState = {
-  gender: Gender.GIRL,
-  popularity: Popularity.UNIQUE,
-  length: Length.LONG,
-};
-
 const options = reactive<OptionsState>({
   gender: Gender.GIRL,
   popularity: Popularity.UNIQUE,
   length: Length.LONG,
 });
+
+const computeSelectedNames = () => {
+  const filteredNames = names
+    .filter((name) => name.gender === options.gender)
+    .filter((name) => name.popularity === options.popularity)
+    .filter((name) => {
+      if (options.length === Length.ALL) return true;
+      else return name.length === options.length;
+    });
+
+  selectedNames.value = filteredNames.map((name) => name.name);
+};
+
+const selectedNames = ref<string[]>([]);
 </script>
 
 <template>
@@ -105,8 +99,15 @@ const options = reactive<OptionsState>({
           >
         </div>
       </div>
-      <button class="primary">Find Names</button>
+      <button class="primary" @click="computeSelectedNames">Find Names</button>
     </div>
+    <div class="cards-container">
+      <div class="card" v-for="name in selectedNames" :key="name">
+        <h3>{{ name }}</h3>
+        <p>x</p>
+      </div>
+    </div>
+    {{ selectedNames }}
   </div>
 </template>
 
@@ -170,5 +171,31 @@ const options = reactive<OptionsState>({
   font-size: 1rem;
   margin-top: 1rem;
   cursor: pointer;
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 3rem;
+}
+
+.card {
+  background-color: rgb(27, 60, 138);
+  color: #fff;
+  border-radius: 0.1rem;
+  padding: 1rem;
+  margin: 0 0.5rem 1rem 0;
+  width: 28%;
+  text-align: center;
+  position: relative;
+}
+
+.card p {
+  position: absolute;
+  top: -29%;
+  left: 92.5%;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.178);
+  font-size: 1.5rem;
 }
 </style>
