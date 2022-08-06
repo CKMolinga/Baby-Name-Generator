@@ -14,8 +14,16 @@ const options = reactive({
       <div class="option-container">
         <h4>1) Choose a gender</h4>
         <div class="option-buttons">
-          <button class="option option-left">Boy</button>
-          <button class="option">Unisex</button>
+          <button
+            class="option option-left"
+            :class="options.gender === 'Boy' && 'option-active'"
+            >Boy</button
+          >
+          <button
+            class="option"
+            :class="options.gender === 'Unisex' && 'option-active'"
+            >Unisex</button
+          >
           <button
             class="option option-right"
             :class="options.gender === 'Girl' && 'option-active'"
@@ -26,16 +34,36 @@ const options = reactive({
       <div class="option-container">
         <h4>2) Choose names's popularity</h4>
         <div class="option-buttons">
-          <button class="option option-left">Trendy</button>
-          <button class="option option-right">Unique</button>
+          <button
+            class="option option-left"
+            :class="options.popularity === 'Trendy' && 'option-active'"
+            >Trendy</button
+          >
+          <button
+            class="option option-right"
+            :class="options.popularity === 'Unique' && 'option-active'"
+            >Unique</button
+          >
         </div>
       </div>
       <div class="option-container">
         <h4>3) Choose name's length</h4>
         <div class="option-buttons">
-          <button class="option option-left">Long</button>
-          <button class="option">All</button>
-          <button class="option option-right">Short</button>
+          <button
+            class="option option-left"
+            :class="options.length === 'Long' && 'option-active'"
+            >Long</button
+          >
+          <button
+            class="option"
+            :class="options.length === 'All' && 'option-active'"
+            >All</button
+          >
+          <button
+            class="option option-right"
+            :class="options.length === 'Short' && 'option-active'"
+            >Short</button
+          >
         </div>
       </div>
     </div>
