@@ -34,19 +34,19 @@ const optionsArray = [
   {
     title: "1) Choose a gender",
     category: "gender",
-    buttons: [Gender.GIRL, Gender.UNISEX, Gender.BOY] 
+    buttons: [Gender.GIRL, Gender.UNISEX, Gender.BOY],
   },
   {
     title: "2) Choose names's popularity",
     category: "popularity",
-    buttons: [Popularity.TRENDY, Popularity.UNIQUE] 
+    buttons: [Popularity.TRENDY, Popularity.UNIQUE],
   },
   {
     title: "3) Choose names's length",
     category: "length",
-    buttons: [Length.LONG, Length.ALL, Length.SHORT] 
-  }
-]
+    buttons: [Length.LONG, Length.ALL, Length.SHORT],
+  },
+];
 </script>
 
 <template>
@@ -54,14 +54,16 @@ const optionsArray = [
     <h1>Baby Name Generator</h1>
     <p>Choose your options and click the "Find Names" buttton below</p>
     <div class="options-container">
-      <Option v-for="option in optionsArray" :key="option.title" :option="option" :options="options" />
+      <Option
+        v-for="option in optionsArray"
+        :key="option.title"
+        :option="option"
+        :options="options"
+      />
       <button class="primary" @click="computeSelectedNames">Find Names</button>
     </div>
     <div class="cards-container">
-      <div class="card" v-for="name in selectedNames" :key="name">
-        <h3>{{ name }}</h3>
-        <p>x</p>
-      </div>
+      <CardName v-for="name in selectedNames" :key="name" :name="name" />
     </div>
   </div>
 </template>
@@ -89,8 +91,6 @@ const optionsArray = [
   position: relative;
 }
 
-
-
 .primary {
   background-color: rgb(249, 87, 89);
   color: #fff;
@@ -106,25 +106,5 @@ const optionsArray = [
   display: flex;
   flex-wrap: wrap;
   margin-top: 3rem;
-}
-
-.card {
-  background-color: rgb(27, 60, 138);
-  color: #fff;
-  border-radius: 0.1rem;
-  padding: 1rem;
-  margin: 0 0.5rem 1rem 0;
-  width: 28%;
-  text-align: center;
-  position: relative;
-}
-
-.card p {
-  position: absolute;
-  top: -29%;
-  left: 92.5%;
-  cursor: pointer;
-  color: rgba(0, 0, 0, 0.178);
-  font-size: 1.5rem;
 }
 </style>
